@@ -24,8 +24,8 @@ class JobOffers
 					'Content-Type' => 'application/x-www-form-urlencoded',
 					'Authorization' => 'Bearer ' . $token,
 				],
-				'body' => [
-					'departement' => '35',
+				'query' => [
+					'commune' => '35238',
 				],
 			]
         );
