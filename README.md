@@ -17,4 +17,4 @@
 * If you don't have the Symfony binary installed, configure a web server like Nginx or Apache to run the application.
 
 ## Usage
-* Run `symfony job:fetch-offers` or `php bin/console job:fetch-offers` to fetch job offers from Pôle Emploi [Pôle Emploi](https://pole-emploi.io/data/api/offres-emploi)
+* Run `symfony job:fetch-offers` or `php bin/console job:fetch-offers` to fetch job offers from [Pôle Emploi](https://pole-emploi.io/data/api/offres-emploi)
