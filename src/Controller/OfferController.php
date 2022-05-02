@@ -34,6 +34,8 @@ class OfferController extends AbstractController
         
         $offer = new Offer();
 
+        //TODO Add form contraints and validations
+
         $form = $this->createForm(OfferType::class, $offer);
 
         $form->handleRequest($request);
