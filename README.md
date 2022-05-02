@@ -7,8 +7,7 @@ The "Job Offers Application" allows to fetch job offers from Pôle Emploi.
 
 ## Launching the project
 
-* Fork the repository
-* Clone it on your computer
+* Clone the repository on your computer
 * Run `composer install`
 * Create the database with `php bin/console doctrine:database:create`
 * Run the migrations with `php bin/console doctrine:migrations:migrate`
