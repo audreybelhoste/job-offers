@@ -1,4 +1,5 @@
 # job-offers
+The "Job Offers Application" allows to fetch job offers from Pôle Emploi. 
 
 ## Prerequisites
 * Composer
