@@ -2,20 +2,32 @@
 
 namespace App\Service;
 
+use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class JobOffers
 {
     private $client;
+    private $grantType;
+    private $clientId;
+    private $clientSecret;
+    private $scope;
 
-    public function __construct(HttpClientInterface $client)
+    public function __construct(HttpClientInterface $client, string $grantType, string $clientId, string $clientSecret, string $scope)
     {
         $this->client = $client;
+        $this->grantType = $grantType;
+        $this->clientId = $clientId;
+        $this->clientSecret = $clientSecret;
+        $this->scope = $scope;
     }
 
     public function fetchJobOffers(): array
     {
 		$token = $this->fetchToken();
+
+        //TODO Manage multiple calls when API max is reach to retrieve all offers
+        //TODO Manage calls errors
 
         $response = $this->client->request(
             'GET',
@@ -25,25 +37,22 @@ class JobOffers
 					'Authorization' => 'Bearer ' . $token,
 				],
 				'query' => [
-					'commune' => '35238',
+					'commune' => '35238,33063,75101',
 				],
 			]
         );
 
-        $statusCode = $response->getStatusCode();
-        // $statusCode = 200
-        $contentType = $response->getHeaders()['content-type'][0];
-        // $contentType = 'application/json'
         $content = $response->getContent();
-        // $content = '{"id":521583, "name":"symfony-docs", ...}'
         $content = $response->toArray();
-        // $content = ['id' => 521583, 'name' => 'symfony-docs', ...]
 
         return $content;
     }
 
 	public function fetchToken(): string
 	{
+        //TODO Manage calls errors
+        //TODO Store token when created and renew when expired
+
 		$response = $this->client->request(
             'POST',
             'https://entreprise.pole-emploi.fr/connexion/oauth2/access_token?realm=%2Fpartenaire', [
@@ -51,10 +60,10 @@ class JobOffers
 					'Content-Type' => 'application/x-www-form-urlencoded',
 				],
 				'body' => [
-					'grant_type' => 'client_credentials',
-					'client_id' => 'PAR_joboffers_260ad00e7b64043f6f5fd105098f3068df3c272e54d2c4f8b0cd194e9516f929',
-					'client_secret' => '65c8bd095c062f351c85e953ad637569c08db1d599b6e52fb865aa5134598bbb',
-					'scope' => 'application_PAR_joboffers_260ad00e7b64043f6f5fd105098f3068df3c272e54d2c4f8b0cd194e9516f929 api_offresdemploiv2 o2dsoffre',
+					'grant_type' => $this->grantType,
+					'client_id' => $this->clientId,
+					'client_secret' => $this->clientSecret,
+					'scope' => $this->scope,
 				],
 			]
         );

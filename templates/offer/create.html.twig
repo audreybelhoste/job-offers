@@ -1,13 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello OfferController!{% endblock %}
+{% block title %}Ajouter une offre d'emploi{% endblock %}
 
 {% block body %}
+
+<div class="d-flex my-5">
+	<a href="{{ path('app_offer') }}" class="btn btn-primary">Liste des offres</a>
+</div>
 
 {% form_theme form 'bootstrap_5_layout.html.twig' %}
 {{ form_start(form)}}
 {{ form_widget(form)}}
-	<button type="submit"">Ajouter une offre</button>
+<button type="submit" class="btn btn-secondary">Ajouter une offre</button>
 {{ form_end(form)}}
 
 {% endblock %}

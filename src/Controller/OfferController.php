@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Offer;
 use App\Form\OfferType;
 use App\Repository\OfferRepository;
-use App\Service\JobOffers;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,22 +14,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class OfferController extends AbstractController
 {
     /**
-     * @Route("/offer", name="app_offer")
+     * @Route("/", name="app_offer")
      */
-    public function index(JobOffers $jobOffers, OfferRepository $offerRepository, ManagerRegistry $doctrine): Response
+    public function index(OfferRepository $offerRepository): Response
     {
-        // $jobOffersList = $jobOffers->fetchJobOffers();
-
-        // dd($jobOffersList['resultats'][35]);
-
-        // foreach($jobOffersList['resultats'] as $job){
-        //     dd($job);
-        // } 
-
-        $dbJobs = $offerRepository->findAll();
+        $offers = $offerRepository->findAll();
 
         return $this->render('offer/index.html.twig', [
-            'dbJobs' => $dbJobs,
+            'offers' => $offers,
         ]);
     }
 

@@ -1,16 +1,35 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello OfferController!{% endblock %}
+{% block title %}Liste des offres{% endblock %}
 
 {% block body %}
 
-{% for job in dbJobs %}
+<div class="d-flex my-5">
+	<a href="{{ path('create_offer') }}" class="btn btn-primary">Ajouter une nouvelle offre</a>
+</div>
+<table class="table">
+	<thead>
 
-{{ job.name }}
-{{ job.distantId }}
-{{ job.id }}
-</br>
+		<tr>
+			<th scope="col">Intitulé</th>
+			<th scope="col">Description</th>
+			<th scope="col">Lien</th>
+		</tr>
 
-{% endfor %}
+	</thead>
+	<tbody>
+
+		{% for offer in offers %}
+			<tr>
+				<td>{{ offer.name }}</td>
+				<td>{{ offer.description }}</td>
+				<td><a href="{{ offer.url }}" target="_blank" class="btn btn-secondary">Offre</a></td>
+			</tr>
+		{% endfor %}
+
+	</tbody>
+</table>
+
+
 
 {% endblock %}
